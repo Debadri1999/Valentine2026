@@ -1,18 +1,53 @@
-const ring = document.querySelector(".carousel__ring");
-const items = Array.from(document.querySelectorAll(".carousel__item"));
+const track = document.getElementById("wheelTrack");
+const items = Array.from(document.querySelectorAll(".wheel__item"));
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const toast = document.getElementById("toast");
 const buttonArea = document.getElementById("buttonArea");
+const modal = document.getElementById("photoModal");
+const modalImage = document.getElementById("modalImage");
+const modalClose = document.getElementById("modalClose");
 
-const radius = 240;
-const itemCount = items.length;
-const angleStep = 360 / itemCount;
+const radius = 360;
+const total = items.length;
+const step = 360 / total;
 
 items.forEach((item, index) => {
-  const angle = angleStep * index;
-  item.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+  const angle = step * index;
+  item.style.transform = `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${radius}px)`;
 });
+
+let activeIndex = 0;
+
+const setActive = (index) => {
+  items.forEach((item, itemIndex) => {
+    item.classList.toggle("is-active", itemIndex === index);
+  });
+};
+
+const rotateWheel = () => {
+  if (!track || total === 0) return;
+  activeIndex = (activeIndex + 1) % total;
+  const rotation = -step * activeIndex;
+  track.style.transform = `rotateY(${rotation}deg)`;
+  setActive(activeIndex);
+};
+
+setActive(0);
+let autoRotate = setInterval(rotateWheel, 2800);
+
+const stopRotation = () => {
+  if (autoRotate) {
+    clearInterval(autoRotate);
+    autoRotate = null;
+  }
+};
+
+const startRotation = () => {
+  if (!autoRotate) {
+    autoRotate = setInterval(rotateWheel, 2800);
+  }
+};
 
 const moveNoButton = () => {
   if (!buttonArea) return;
@@ -48,6 +83,40 @@ noBtn.addEventListener("touchstart", moveNoButton);
 
 yesBtn.addEventListener("click", () => {
   toast.classList.add("show");
-  ring.style.animationPlayState = "paused";
+  stopRotation();
   setTimeout(() => toast.classList.remove("show"), 4000);
+});
+
+const openModal = (src, alt) => {
+  if (!modal || !modalImage) return;
+  modalImage.src = src;
+  modalImage.alt = alt || "Memory";
+  modal.classList.add("show");
+  modal.setAttribute("aria-hidden", "false");
+  stopRotation();
+};
+
+const closeModal = () => {
+  if (!modal || !modalImage) return;
+  modal.classList.remove("show");
+  modal.setAttribute("aria-hidden", "true");
+  modalImage.src = "";
+  startRotation();
+};
+
+items.forEach((item) => {
+  item.addEventListener("click", () => openModal(item.src, item.alt));
+});
+
+modalClose?.addEventListener("click", closeModal);
+modal?.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && modal?.classList.contains("show")) {
+    closeModal();
+  }
 });

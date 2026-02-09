@@ -22,60 +22,59 @@
       </header>
 
       <section class="showcase">
-        <div class="carousel" aria-label="Our memories">
-          <div class="carousel__ring">
+        <div class="wheel" aria-label="Our memories">
+          <div class="wheel__track" id="wheelTrack">
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM.jpeg"
               alt="Memory 1"
-              class="carousel__item"
+              class="wheel__item"
             />
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM%20(1).jpeg"
               alt="Memory 2"
-              class="carousel__item"
+              class="wheel__item"
             />
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM%20(2).jpeg"
               alt="Memory 3"
-              class="carousel__item"
+              class="wheel__item"
             />
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM%20(3).jpeg"
               alt="Memory 4"
-              class="carousel__item"
+              class="wheel__item"
             />
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM%20(4).jpeg"
               alt="Memory 5"
-              class="carousel__item"
+              class="wheel__item"
             />
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM%20(5).jpeg"
               alt="Memory 6"
-              class="carousel__item"
+              class="wheel__item"
             />
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM%20(6).jpeg"
               alt="Memory 7"
-              class="carousel__item"
+              class="wheel__item"
             />
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM%20(7).jpeg"
               alt="Memory 8"
-              class="carousel__item"
+              class="wheel__item"
             />
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM%20(8).jpeg"
               alt="Memory 9"
-              class="carousel__item"
+              class="wheel__item"
             />
             <img
               src="./WhatsApp%20Image%202026-02-09%20at%203.28.45%20AM%20(9).jpeg"
               alt="Memory 10"
-              class="carousel__item"
+              class="wheel__item"
             />
           </div>
-          <div class="carousel__heart" aria-hidden="true">❤</div>
         </div>
       </section>
 
@@ -93,6 +92,15 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite">
       You just made my whole year, Sara! 💖
+    </div>
+
+    <div class="modal" id="photoModal" role="dialog" aria-hidden="true">
+      <div class="modal__content">
+        <button class="modal__close" id="modalClose" aria-label="Close photo">
+          ✕
+        </button>
+        <img id="modalImage" alt="Memory" />
+      </div>
     </div>
 
     <script src="./script.js"></script>
